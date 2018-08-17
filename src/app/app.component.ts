@@ -1,33 +1,26 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { DevicesService } from './core/services/devices.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
     
-  devices = [];
+  devices;
 
-  constructor(private electronService: ElectronService) { }
+  constructor(private devicesService: DevicesService) { }
 
   ngOnInit(): void {
-    this.electronService.ipcRenderer.on('asynchronous-reply', (event, arg) => {
-      if (this.devices.filter(dev => dev.id = arg.id).length === 0) {
-        this.devices.push(arg);
-      }
-      console.log(this.devices);
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.getDevices();
+    this.devicesService.devices.subscribe(devices => {
+      this.devices = devices;
+    })
   }
 
   getDevices() {
-    this.electronService
-      .ipcRenderer.send('discavery-devices');
+    this.devicesService.discaveryDevices();
   }
   
 }
