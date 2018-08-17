@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "Krzysztof Gacek",
   "description": "Yeelight manage app",
-  "main": "src/main.js",
+  "main": "src/mainElectron.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
+    "ngx-electron": "^1.0.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
