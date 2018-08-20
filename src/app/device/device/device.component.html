@@ -1,3 +1,6 @@
+<mat-slide-toggle color="primary" [checked]="device.power === 'on' ? true : false" (change)="toggleDevice()">On/Off</mat-slide-toggle>
+
+
 <p>
   {{device | json}}
 </p>
