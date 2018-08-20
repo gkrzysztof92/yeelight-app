@@ -3,6 +3,7 @@ const ipcMain = require("electron").ipcMain;
 const path = require("path");
 const url = require("url");
 const dgram = require("dgram");
+var net = require("net");
 
 let win;
 
@@ -54,6 +55,24 @@ ipcMain.on("discavery-devices", (event, arg) => {
     err,
     bytes
   ) {});
+});
+
+ipcMain.on("send-command", (event, arg) => {
+  let client = new net.Socket();
+  const address = arg.deviceIp.replace("yeelight://", "").split(":");
+
+  client.on("data", function(data) {
+    event.sender.send("command-response", data);
+    client.destroy();
+  });
+
+  client.connect(
+    address[1],
+    address[0],
+    function() {
+      client.write(JSON.stringify(arg.commandPayload) + "\r\n");
+    }
+  );
 });
 
 parseDiscaveryResponse = function(discaveryResponse) {
