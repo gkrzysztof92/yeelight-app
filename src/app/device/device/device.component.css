@@ -1,0 +1,17 @@
+.controls-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.controls-container > * {
+    width: 100%;
+}
+
+.bright-icon {
+    vertical-align: middle;
+    color: gray;
+}
+
+.bright-slider {
+    margin-left: 10px;
+}

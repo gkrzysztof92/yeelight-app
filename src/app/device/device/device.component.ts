@@ -4,7 +4,7 @@ import { Device } from '../../../yeelight-api/model/device';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { switchMap, map } from 'rxjs/operators';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange, MatSliderChange } from '@angular/material';
 import { Command } from '../../../yeelight-api/model/command';
 
 
@@ -34,6 +34,13 @@ export class DeviceComponent implements OnInit {
     const cmd = { deviceIp: this.device.location,  
       commandPayload: { id: 1, method: 'toggle', params: [] }
     } as Command;  
+    this.deviceService.sendCommand(cmd);
+  }
+
+  setBright(valueChange: MatSliderChange) {
+    const cmd = { deviceIp: this.device.location,
+      commandPayload: {id: 1, method: 'set_bright', params: [valueChange.value, 'smooth', 500]}
+    } as Command
     this.deviceService.sendCommand(cmd);
   }
 
