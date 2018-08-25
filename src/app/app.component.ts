@@ -8,19 +8,11 @@ import { DevicesService } from './core/services/devices.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    
-  devices;
-
+  
   constructor(private devicesService: DevicesService) { }
 
   ngOnInit(): void {
-    this.devicesService.devices.subscribe(devices => {
-      this.devices = devices;
-    })
-  }
-
-  getDevices() {
-    this.devicesService.discaveryDevices();
+      this.devicesService.discaveryDevices();
   }
   
 }

@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +20,6 @@ import { DeviceModule } from './device/device.module';
     BrowserAnimationsModule,
     CoreModule,
     DeviceModule,
-    RouterModule.forRoot([]),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       name: 'Yeelight App DevTools',

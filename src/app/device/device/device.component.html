@@ -1,4 +1,4 @@
-<div class="controls-container">
+<div class="controls-container" *ngIf="device">
   <div>
     <mat-slide-toggle color="primary" 
       [checked]="device.power === 'on' ? true : false" 
