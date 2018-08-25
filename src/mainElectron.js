@@ -44,10 +44,13 @@ ipcMain.on("discavery-devices", (event, arg) => {
 
   const client = dgram.createSocket("udp4");
 
+  const devices = [];
+
   client.on("message", function(msg, rinfo) {
-    let vmsg = msg.toString();
-    const device = parseDiscaveryResponse(vmsg);
-    event.sender.send("asynchronous-reply", device);
+    const device = parseDiscaveryResponse(msg.toString());
+    if (!devices.find(d => device.id === d.id)) {
+      devices.push(device);
+    }
   });
 
   const dmsg = Buffer.from(discaveryMsg);
@@ -55,6 +58,11 @@ ipcMain.on("discavery-devices", (event, arg) => {
     err,
     bytes
   ) {});
+
+  setTimeout(() => {
+    client.close();
+    event.sender.send("discavery-devices-reply", devices);
+  }, 500);
 });
 
 ipcMain.on("send-command", (event, arg) => {

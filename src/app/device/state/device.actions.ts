@@ -8,7 +8,7 @@ export enum DeviceActionTypes {
 
 export class DiscaveryDevices implements Action {
     readonly type = DeviceActionTypes.DiscaveryDevices;
-    constructor(public payload: Device) { };
+    constructor(public payload: Device[]) { };
 }
 
 export class SetCurrentDevice implements Action {

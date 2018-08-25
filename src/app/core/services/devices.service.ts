@@ -17,9 +17,8 @@ export class DevicesService {
     private electronService: ElectronService,
     private store: Store<State>
   ) {
-    this.electronService.ipcRenderer.on('asynchronous-reply', 
-      (event, arg) => this
-        .store.dispatch(new deviceActions.DiscaveryDevices(arg)));
+    this.electronService.ipcRenderer.on('discavery-devices-reply', 
+      (event, arg) => this.store.dispatch(new deviceActions.DiscaveryDevices(arg)));
 
     this.electronService.ipcRenderer.on('command-response', (event, arg) => {
       console.log('Command Response: ' + arg);

@@ -5,12 +5,9 @@ export function reducer(state = fromDevice.initialState, action: DeviceActions):
     console.log(JSON.stringify(action));
     switch (action.type) {
         case DeviceActionTypes.DiscaveryDevices:
-            const devices = state.devices;
-            const deviceIndex = devices.findIndex(d => action.payload.id === d.id);
-            deviceIndex === -1 ? devices.push(action.payload) : devices[deviceIndex] = action.payload;
             return {
                 ... state,
-                devices: devices
+                devices: action.payload
             };
         case DeviceActionTypes.SetCurrentDevice:
             return {
