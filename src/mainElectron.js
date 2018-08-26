@@ -3,7 +3,9 @@ const ipcMain = require("electron").ipcMain;
 const path = require("path");
 const url = require("url");
 const dgram = require("dgram");
-var net = require("net");
+const net = require("net");
+
+const { default: installExtension } = require("electron-devtools-installer");
 
 let win;
 
@@ -21,6 +23,24 @@ function createWindow() {
     win = null;
   });
 }
+
+const extensions = [
+  { name: "Redux DevTools", id: "lmhkpmbekcpmknklioeibfkpmmfibljd" }
+];
+
+app.once("ready", () => {
+  const userDataPath = app.getPath("userData");
+  extensions.forEach(ext => {
+    installExtension(ext.id)
+      .then(() => {
+        console.log(ext.name + " installed in " + userDataPath);
+      })
+      .catch(err => {
+        console.error("Failed to install " + ext.name, err);
+      });
+  });
+  require("devtron").install();
+});
 
 app.on("ready", createWindow);
 
