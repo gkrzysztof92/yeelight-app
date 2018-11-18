@@ -1,0 +1,25 @@
+{
+    "productName": "yeelight-app",
+    "directories": {
+        "output": "release/"
+    },
+    "files": [
+        "dist",
+        "src/electron/*"
+    ],
+    "win": {
+        "target": [
+            "portable"
+        ]
+    },
+    "mac": {
+        "target": [
+            "dmg"
+        ]
+    },
+    "linux": {
+        "target": [
+            "AppImage"
+        ]
+    }
+}
