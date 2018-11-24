@@ -24,6 +24,15 @@ export function reducer(state = fromDevice.initialState, action: DeviceActions):
                 currentDevice: currentDevice,
                 devices: state.devices.map(device => device.id === currentDevice.id ? currentDevice : device)
             };
+        case DeviceActionTypes.SetBrightDeviceActionSuccess:
+            const sbDevice = {
+                ... state.currentDevice,
+                bright: +action.payload.payload.params[0]
+            } as Device;
+            return {
+                currentDevice: sbDevice,
+                devices: state.devices.map(device => device.id === sbDevice.id ? sbDevice : device)
+            };
         default:
             return state;
     }

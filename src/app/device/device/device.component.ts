@@ -42,6 +42,7 @@ export class DeviceComponent implements OnInit {
     const cmd = { deviceIp: this.device.location,
       commandPayload: {id: 1, method: 'set_bright', params: [valueChange.value, 'smooth', 500]}
     } as Command;
+    this.store.dispatch(new deviceActions.DeviceCommand(cmd));
   }
 
 }

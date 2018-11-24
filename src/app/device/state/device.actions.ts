@@ -9,7 +9,8 @@ export enum DeviceActionTypes {
 
     DeviceCommand = '[Device] Command Device',
 
-    ToggleDeviceActionSuccess = '[Device] Toggle Device Success'
+    ToggleDeviceActionSuccess = '[Device] Toggle Device Success',
+    SetBrightDeviceActionSuccess = '[Device] Set Bright Device Success'
 }
 
 export class DiscaveryDevices implements Action {
@@ -32,4 +33,11 @@ export class ToggleDeviceCommandSuccess implements Action {
     constructor(public payload: CommandResponse) { }
 }
 
-export type DeviceActions = DiscaveryDevices | SetCurrentDevice | DeviceCommand | ToggleDeviceCommandSuccess;
+export class  SetBrightDeviceCommandSuccess implements Action {
+    readonly type = DeviceActionTypes.SetBrightDeviceActionSuccess;
+    constructor(public payload: CommandResponse) { }
+}
+
+
+export type DeviceActions = DiscaveryDevices | SetCurrentDevice |
+            DeviceCommand | ToggleDeviceCommandSuccess | SetBrightDeviceCommandSuccess;

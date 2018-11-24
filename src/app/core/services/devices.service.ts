@@ -25,6 +25,9 @@ export class DevicesService {
         case 'toggle':
           this.store.dispatch(new deviceActions.ToggleDeviceCommandSuccess(arg));
           break;
+        case 'set_bright':
+          this.store.dispatch(new deviceActions.SetBrightDeviceCommandSuccess(arg));
+          break;
       }
     });
   }
