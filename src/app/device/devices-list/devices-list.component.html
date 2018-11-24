@@ -1,3 +1,5 @@
 <mat-nav-list>
-    <a mat-list-item *ngFor="let device of devices" (click)="selectDevice(device)" > {{ device.model }} </a>
- </mat-nav-list>
+    <a mat-list-item *ngFor="let device of devices" (click)="selectDevice(device)" [ngStyle]="{'background' : device.id === selectedDeviceId ? '#98c4d2' : '' }"> 
+        {{ device.model }} 
+    </a>
+</mat-nav-list>

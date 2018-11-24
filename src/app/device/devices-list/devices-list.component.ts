@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DevicesService } from '../../core/services/devices.service';
 import { Device } from '../../../yeelight-api/model/device';
 import { Store, select } from '@ngrx/store';
 
@@ -14,23 +13,23 @@ import * as devicesActions from '../state/device.actions';
 export class DevicesListComponent implements OnInit {
 
   devices: Device[];
+  selectedDeviceId: string;
 
   constructor(
     private store: Store<fromDevice.DeviceState>,
-    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.store.pipe(select('devices'))
       .subscribe(devices => {
-        if(devices) {
+        if (devices) {
           this.devices = devices.devices;
-          this.cd.detectChanges();
         }
       });
   }
 
   selectDevice(device: Device) {
+    this.selectedDeviceId = device.id;
     this.store.dispatch(new devicesActions.SetCurrentDevice(device));
   }
 
