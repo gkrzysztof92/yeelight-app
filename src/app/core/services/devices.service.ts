@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Device } from '../../../yeelight-api/model/device';
 import { ElectronService } from 'ngx-electron';
-import { Command } from '../../../yeelight-api/model/command';
+import { Command, CommandResponse } from '../../../yeelight-api/model/command';
 import { Store } from '@ngrx/store';
 import { State } from '../../state/app.state';
 
-import * as deviceActions from '../../device/state/device.actions'
+import * as deviceActions from '../../device/state/device.actions';
 
 @Injectable()
 export class DevicesService {
@@ -17,12 +17,16 @@ export class DevicesService {
     private electronService: ElectronService,
     private store: Store<State>
   ) {
-    this.electronService.ipcRenderer.on('discavery-devices-reply', 
+    this.electronService.ipcRenderer.on('discavery-devices-reply',
       (event, arg) => this.store.dispatch(new deviceActions.DiscaveryDevices(arg)));
 
-    this.electronService.ipcRenderer.on('command-response', (event, arg) => {
-      console.log('Command Response: ' + arg);
-    })
+    this.electronService.ipcRenderer.on('command-response', (event, arg: CommandResponse) => {
+      switch (arg.payload.method) {
+        case 'toggle':
+          this.store.dispatch(new deviceActions.ToggleDeviceCommandSuccess(arg));
+          break;
+      }
+    });
   }
 
   discaveryDevices() {
@@ -30,7 +34,6 @@ export class DevicesService {
   }
 
   sendCommand(command: Command) {
-    console.log('Command: ' + JSON.stringify(command));
     this.electronService.ipcRenderer.send('send-command', command);
   }
 

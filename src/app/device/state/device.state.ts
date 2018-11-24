@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromRoot from '../../state/app.state'
+import * as fromRoot from '../../state/app.state';
 import { Device } from '../../../yeelight-api/model/device';
 
 export interface State extends fromRoot.State {
@@ -7,7 +7,7 @@ export interface State extends fromRoot.State {
 }
 
 export interface DeviceState {
-    currentDevice: Device,
+    currentDevice: Device;
     devices: Device[];
 }
 

@@ -1,12 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DevicesService } from '../../core/services/devices.service';
 import { Device } from '../../../yeelight-api/model/device';
 
-import { switchMap, map, filter } from 'rxjs/operators';
-import { MatSlideToggleChange, MatSliderChange } from '@angular/material';
+import { map } from 'rxjs/operators';
+import { MatSliderChange } from '@angular/material';
 import { Command } from '../../../yeelight-api/model/command';
 import { Store, select } from '@ngrx/store';
 import { DeviceState } from '../state/device.state';
+
+import * as deviceActions from '../../device/state/device.actions';
 
 
 @Component({
@@ -20,8 +21,6 @@ export class DeviceComponent implements OnInit {
 
   constructor(
     private store: Store<DeviceState>,
-    private devicesService: DevicesService,
-    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -29,22 +28,20 @@ export class DeviceComponent implements OnInit {
       .pipe(map(devices => devices.currentDevice))
       .subscribe(device => {
         this.device = device;
-        this.cd.detectChanges();
       });
   }
 
   toggleDevice() {
-    const cmd = { deviceIp: this.device.location,  
+    const cmd = { deviceIp: this.device.location,
       commandPayload: { id: 1, method: 'toggle', params: [] }
-    } as Command;  
-    this.devicesService.sendCommand(cmd);
+    } as Command;
+    this.store.dispatch(new deviceActions.DeviceCommand(cmd));
   }
 
   setBright(valueChange: MatSliderChange) {
     const cmd = { deviceIp: this.device.location,
       commandPayload: {id: 1, method: 'set_bright', params: [valueChange.value, 'smooth', 500]}
-    } as Command
-    this.devicesService.sendCommand(cmd);
+    } as Command;
   }
 
 }

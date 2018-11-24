@@ -1,19 +1,18 @@
 <div class="controls-container" *ngIf="device">
-  <div>
-    <mat-slide-toggle color="primary" 
-      [checked]="device.power === 'on' ? true : false" 
-      (change)="toggleDevice()">On/Off
-    </mat-slide-toggle>
-  </div>
-  <div>
-    <mat-icon class="bright-icon">wb_sunny</mat-icon>
-    <mat-slider #brightSlider class="bright-slider" max="100" min="1"
-      thumbLabel="false" [value]="device.bright" (change)="setBright($event)">
-    </mat-slider>
-    <span>{{brightSlider.value}}%</span>
-  </div>
+    <div>
+        <mat-slide-toggle color="primary" [checked]="device?.power === 'on' ? true : false" (change)="toggleDevice()">On/Off
+        </mat-slide-toggle>
+    </div>
+    <div>
+        <mat-icon class="bright-icon">wb_sunny</mat-icon>
+        <mat-slider #brightSlider class="bright-slider" max="100" min="1" thumbLabel="false" [value]="device?.bright" (change)="setBright($event)">
+        </mat-slider>
+        <span>{{brightSlider?.value}}%</span>
+    </div>
 </div>
 
+
+
 <p>
-  {{device | json}}
+    {{device | json}}
 </p>

@@ -99,7 +99,7 @@ ipcMain.on("send-command", (event, arg) => {
     const address = arg.deviceIp.replace("yeelight://", "").split(":");
 
     client.on("data", function(data) {
-        event.sender.send("command-response", data);
+        event.sender.send("command-response", { payload: arg.commandPayload, result: JSON.parse(data) });
         client.destroy();
     });
 
